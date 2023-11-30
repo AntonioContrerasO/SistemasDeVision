@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html>
+<script type="text/javascript" src="/socket.io/socket.io.js"></script>
+<head>
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	 <link rel="stylesheet" href="estilo.css">
+	 <link rel="stylesheet" href="site.css">
+</head>
+<body>
+
+	<p class="gg"><b class = "cambios">Proyecto Steven</b></p>
+
+<div class="container">
+  <div class="process-box">
+    <img id="mainImage"src="https://static.fundacion-affinity.org/cdn/farfuture/PVbbIC-0M9y4fPbbCsdvAD8bcjjtbFc0NSP3lRwlWcE/mtime:1643275542/sites/default/files/los-10-sonidos-principales-del-perro.jpg">
+  </div>
+
+   <div style="width: 270px;">
+
+    <label id="Mag">
+    Etiqueta:
+    <input id="E" type="text" value="Aprobado/No Aprobado">
+  </label>
+  
+  <label>
+    Circular: 
+    <input id = "C" type="text" value="Aprobado/No Aprobado">
+  </label>
+
+  <label>
+    Color:    
+    <input id = "Y" type="text" value="Aprobado/No Aprobado">
+  </label>
+  
+  </div>
+
+  <div class="button-group">
+    <button type="button" id="I">Iniciar</button>
+    <button type="button" id="F">Finalizar</button>
+  </div>
+
+ 
+
+</div>
+
+
+
+
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+	<script src="https://cdn.socket.io/4.5.4/socket.io.min.js"></script>
+    <script src="script.js"></script>
+</body>
+</html>
