@@ -73,20 +73,20 @@ void loop() {
       posicion_home();
     }
     if (inputString == "Bueno1") { // Comando brazo robot para aprobado
-      Serial.println("Classificando como bueno 1");
       secuencia_bueno(1);
+      Serial.println("Classificando como bueno 1");
     }
     if (inputString == "Bueno2") { // Comando brazo robot para aprobado
-      Serial.println("Classificando como bueno 2");
       secuencia_bueno(2);
+      Serial.println("Classificando como bueno 2");
     }
     if (inputString == "Malo1") { // Comando brazo robot para no aprobdo
-    Serial.println("Classificando como malo 2");
       secuencia_malo(1);
+      Serial.println("Classificando como malo 2");
     }
     if (inputString == "Malo2") { // Comando brazo robot para no aprobdo
-    Serial.println("Classificando como malo 2");
       secuencia_malo(2);
+      Serial.println("Classificando como malo 2");
     }
     
     int a = inputString.toInt();
