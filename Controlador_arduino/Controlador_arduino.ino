@@ -151,7 +151,7 @@ void posicion_bueno2(void){
   delay(100);
   write_slowly(servo4, 90);
   delay(100);
-  write_slowly(servo1, 40);
+  write_slowly(servo1, 33);
   delay(100);
   servo2.write(80);
   write_slowly(servo3, 92);
