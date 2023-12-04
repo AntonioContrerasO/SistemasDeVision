@@ -48,7 +48,7 @@ def tomarFoto(numeroDeFoto):
         print("Error al acceder a la cámara")
 
     cap.release()
-    procesarImagen(cv2.imread(f"foto{numeroDeFoto}.png"),numeroDeFoto)
+    return procesarImagen(cv2.imread(f"foto{numeroDeFoto}.png"),numeroDeFoto)
 
 def procesarImagen(image,numLata):
 
@@ -112,6 +112,8 @@ def procesarImagen(image,numLata):
     sio.emit('AprobadoEtiqueta',f"{label_approval}")
     sio.emit('AprobadoColor',f"{color_approval}")
 
+    return True if circle_approval and color_approval and label_approval else False
+
 
 
 
@@ -128,6 +130,11 @@ time.sleep(1) #Tiempo de retardo
 
 
 latas = 0
+
+ListBuenoMalo = []
+TotalBuenos = 0
+TotalMalos = 0
+
 
 while True:
 
@@ -150,12 +157,27 @@ while True:
                 if newd == "LISTO":
                     print("Etiquetado")
             if latas >= 2:
-                tomarFoto(latas-1)
+                ListBuenoMalo.append(tomarFoto(latas-1))
             if latas >= 3:
-                serialArduino.write("CLASIFICADOR".encode("ascii"))
+
+                if ListBuenoMalo[latas-3]:
+                    TotalBuenos = TotalBuenos + 1
+
+                    if TotalBuenos <= 3:
+                        serialArduino.write("Bueno1")
+                    else:
+                        serialArduino.write("Bueno2")
+
+                else:
+                    ToralMalos = ToralMalos + 1
+
+                    if TotalMalos <= 3:
+                        serialArduino.write("Bueno1")
+                    else:
+                        serialArduino.write("Bueno2")
+
                 while (serialArduino.in_waiting < 0):
                     pass
                 newd = serialArduino.readline().decode().strip()
-                if newd == "LISTO":
-                    print("BuenoMALO")
+                print(newd)
             serialArduino.write("Wait_for_Object".encode("ascii"))
