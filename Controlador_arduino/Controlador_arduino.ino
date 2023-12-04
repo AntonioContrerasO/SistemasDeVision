@@ -2,7 +2,7 @@
 #include <Servo.h>
 
 const int pinHallSensor = 12; // Conecta la salida del sensor Hall a este pin digital
-const int pinIRSensor = 13; // Conecta la salida del sensor IR a este pin digital
+const int pinIRSensor =2; // Conecta la salida del sensor IR a este pin digital
 const int pinLED = LED_BUILTIN; // Usar el LED incorporado en la placa
 const int pinMotor = 8; // Conectar la entrada del Driver del Motor Central a este Pin digital
 
@@ -82,7 +82,7 @@ void loop() {
     }
     if (inputString == "Malo1") { // Comando brazo robot para no aprobdo
       secuencia_malo(1);
-      Serial.println("Classificando como malo 2");
+      Serial.println("Classificando como malo 1");
     }
     if (inputString == "Malo2") { // Comando brazo robot para no aprobdo
       secuencia_malo(2);
@@ -139,7 +139,7 @@ void posicion_bueno1(void){
   delay(100);
   write_slowly(servo4, 90);
   delay(100);
-  write_slowly(servo1, 60);
+  write_slowly(servo1, 55);
   delay(100);
   servo2.write(80);
   write_slowly(servo3, 92);
@@ -151,7 +151,7 @@ void posicion_bueno2(void){
   delay(100);
   write_slowly(servo4, 90);
   delay(100);
-  write_slowly(servo1, 33);
+  write_slowly(servo1, 30);
   delay(100);
   servo2.write(80);
   write_slowly(servo3, 92);
