@@ -1,9 +1,8 @@
-
 import cv2
 import easyocr
 import numpy as np
 
-reader = easyocr.Reader(["es"],gpu=False)
+reader = easyocr.Reader(["es"],gpu=True)
 
 
 image = cv2.imread("Prueba3.png")
@@ -17,13 +16,12 @@ gray_blurred = cv2.blur(gray, (3, 3))
 result = reader.readtext(gray)
 
 detected_circles = cv2.HoughCircles(gray_blurred,  
-                   cv2.HOUGH_GRADIENT, 1, 100, param1 = 200, 
-               param2 = 30, minRadius = 200, maxRadius = 600) 
+                   cv2.HOUGH_GRADIENT, 1, 1000, param1 = 50, 
+               param2 = 30, minRadius = 200, maxRadius = 300) 
 
-if detected_circles is not None:
+if detected_circles is not None: 
     # Convert the circle parameters a, b and r to integers. 
     detected_circles = np.uint16(np.around(detected_circles))
-    print("Hubo circulos") 
   
     for x in detected_circles[0, :]: 
         a, b, r = x[0], x[1], x[2] 

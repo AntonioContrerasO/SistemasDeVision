@@ -56,8 +56,8 @@ def procesarImagen(image,numLata):
     label_approval = False
     color_approval = False
 
-    color_bajo = np.array([20, 100, 240])
-    color_alto = np.array([35, 255, 255])
+    color_bajo = np.array([15, 120, 50])
+    color_alto = np.array([30, 255, 255])
 
     result = reader.readtext(image,rotation_info=[90, 180 ,270])
     gray = cv2.cvtColor(image, cv2.COLOR_BGR2GRAY) 
@@ -67,15 +67,16 @@ def procesarImagen(image,numLata):
     hsv = cv2.cvtColor(image, cv2.COLOR_BGR2HSV)
     rango_color = cv2.inRange(hsv, color_bajo, color_alto)
     area_color = cv2.countNonZero(rango_color)
-    umbral_area = 50  
-    color_presente = area_color > umbral_area 
+    print(area_color)
+    umbral_area = 10000 
+    color_approval = area_color > umbral_area 
 
     # Modelo OCR
     result = reader.readtext(gray)
     # Modelo Detector de circulos
     detected_circles = cv2.HoughCircles(gray_blurred,  
-                   cv2.HOUGH_GRADIENT, 1, 1000, param1 = 50, 
-               param2 = 80, minRadius = 200, maxRadius = 300) 
+                   cv2.HOUGH_GRADIENT, 1, 1000, param1 = 200, 
+               param2 = 110, minRadius = 200, maxRadius = 300) 
 
     if detected_circles is not None:
     # Convert the circle parameters a, b and r to integers. 
@@ -95,7 +96,7 @@ def procesarImagen(image,numLata):
         pt0 = [int(x) for x in res[0][0]]
         pt1 = [int(x) for x in res[0][2]]
 
-        if res[1] == "05.11.25" or res[1] == "10.00":
+        if res[1] == "05.11.24" or res[1] == "10.00" or res[1]== "15.11.24" or res[1]== ")5.11.24" or res[1] == "5.11.24":
             tempCount = tempCount + 1
             if tempCount == 2:
                 label_approval = True
@@ -119,7 +120,7 @@ def procesarImagen(image,numLata):
 
 
 #Definicion de las variables necesarias
-PUERTOSERIE = "COM10"
+PUERTOSERIE = "COM7"
 BAUDIOS = 9600
 IPSERVER = "127.0.0.1" #IP del server
 PUERTOSERVER = "5000"
@@ -164,17 +165,19 @@ while True:
                     TotalBuenos = TotalBuenos + 1
 
                     if TotalBuenos <= 3:
-                        serialArduino.write("Bueno1")
+                        serialArduino.write("Bueno1".encode("ascii"))
                     else:
-                        serialArduino.write("Bueno2")
+                        serialArduino.write("Bueno2".encode("ascii"))
+                        TotalBuenos = 0
 
                 else:
-                    ToralMalos = ToralMalos + 1
+                    TotalMalos = TotalMalos + 1
 
                     if TotalMalos <= 3:
-                        serialArduino.write("Bueno1")
+                        serialArduino.write("Malo1".encode("ascii"))
                     else:
-                        serialArduino.write("Bueno2")
+                        serialArduino.write("Malo2".encode("ascii"))
+                        TotalMalos = 0
 
                 while (serialArduino.in_waiting < 0):
                     pass

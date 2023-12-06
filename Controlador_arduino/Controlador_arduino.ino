@@ -5,6 +5,7 @@ const int pinHallSensor = 12; // Conecta la salida del sensor Hall a este pin di
 const int pinIRSensor =2; // Conecta la salida del sensor IR a este pin digital
 const int pinLED = LED_BUILTIN; // Usar el LED incorporado en la placa
 const int pinMotor = 8; // Conectar la entrada del Driver del Motor Central a este Pin digital
+const int pinEtiqueta = 7;
 
 int pinServo1 = 3;
 int pinServo2 = 5;
@@ -29,13 +30,16 @@ bool waitForObject = false;
 
 void setup() {
   Serial.begin(9600); // Inicia la comunicación serie
-
-  // TIMSK0 = 0;
   
   pinMode(pinHallSensor, INPUT); // Configura el pin del sensor Hall como entrada
   pinMode(pinIRSensor, INPUT); // Configura el pin del sensor IR como entrada
   pinMode(pinLED, OUTPUT); // Configura el pin del LED como salida
   pinMode(pinMotor, OUTPUT); // Configura el pin del motor como salida
+  pinMode(pinEtiqueta, OUTPUT); // Configura el pin de la etiquetadora como salida
+
+  digitalWrite(pinEtiqueta, LOW);
+
+
 
   servo1.attach(pinServo1);
   servo2.attach(pinServo2);
@@ -62,7 +66,9 @@ void loop() {
       Serial.println("INICIADO");
     }
     if (inputString == "ETIQUETADO") {
-      delay(5000);
+      digitalWrite(pinEtiqueta, HIGH);
+      delay(8000);
+      digitalWrite(pinEtiqueta, LOW);
       Serial.println("LISTO");
     }
     if (inputString == "Recoger"){
