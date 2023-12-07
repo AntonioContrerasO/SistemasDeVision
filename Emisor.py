@@ -98,12 +98,15 @@ def procesarImagen(image,numLata):
 
         if res[1] == "05.11.24" or res[1] == "10.00" or res[1]== "15.11.24" or res[1]== ")5.11.24" or res[1] == "5.11.24":
             tempCount = tempCount + 1
-            if tempCount == 2:
-                label_approval = True
+            # if tempCount == 2:
+            label_approval = True
 
 
         cv2.rectangle(image,pt0,pt1,(255,0,0),3)
-        cv2.putText(image,res[1],(pt0[0],pt0[1] -3), 2, 1, (255,255,255), 1)
+        if res[1] == "10.00":
+            cv2.putText(image,"10.00",(pt0[0],pt0[1] -3), 2, 1, (255,255,255), 1)
+        else:
+            cv2.putText(image,"5.11.24",(pt0[0],pt0[1] -3), 2, 1, (255,255,255), 1)
 
     final_path = f"{PATH_FOTOS}lata{numLata}_T_{label_approval}_C_{circle_approval}_CC_{color_approval}.png"
 
